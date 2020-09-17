@@ -8,6 +8,7 @@ class Board(models.Model):
     contents = models.TextField(verbose_name='내용')
     # on_delete = models.CASCADE -> 작성자가 삭제되면 게시글들도 따라서 삭제하겠다
     writer = models.ForeignKey('user.UserInfo', on_delete=models.CASCADE, verbose_name='작성자')
+    tag = models.ManyToManyField('tag.Tag', verbose_name='태그')
     registered_dttm = models.DateTimeField(auto_now_add=True, verbose_name='작성시간')
 
     def __str__(self):

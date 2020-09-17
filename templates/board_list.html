@@ -14,7 +14,7 @@
                 </thead>
                 <tbody class="text-light">
                 {% for board in boards %}
-                    <tr>
+                    <tr onclick="location.href='/board/detail/{{ board.id }}/'">
                         <th>{{ board.id }}</th>
                         <th>{{ board.title }}</th>
                         <th>{{ board.writer }}</th>
