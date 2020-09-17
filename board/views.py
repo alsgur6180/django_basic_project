@@ -3,11 +3,17 @@ from .models import Board
 from .forms import BoardForm
 from user.models import UserInfo
 from django.http import Http404
+from django.core.paginator import Paginator
 
 
 def board_list(request):
     # -id -> id 역순
-    boards = Board.objects.all().order_by('-id')
+    all_boards = Board.objects.all().order_by('-id')
+    page = int(request.GET.get('p', 1))
+    paginator = Paginator(all_boards, 2)
+
+    boards = paginator.get_page(page)
+
     return render(request, 'board_list.html', {'boards': boards})
 
 
