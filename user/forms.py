@@ -13,7 +13,11 @@ class LoginForm(forms.Form):
         password = cleaned_data.get('password')
 
         if username and password:
-            user = UserInfo.objects.get(username=username)
+            try:
+                user = UserInfo.objects.get(username=username)
+            except UserInfo.DoesNotExist:
+                self.add_error('username', '아이디가 없습니다.')
+                return
             if not check_password(password, user.password):
                 self.add_error('password', '비밀번호가 틀렸습니다.')
             else:
